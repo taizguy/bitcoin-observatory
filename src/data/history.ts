@@ -1,0 +1,211 @@
+import { HistoricalEpoch } from '../types';
+
+export const HISTORICAL_EPOCHS: HistoricalEpoch[] = [
+  {
+    id: 'epoch-2013-peak',
+    year: '2013',
+    title: '2013 Market Peak',
+    date: 'November 2013',
+    price: 1150,
+    healthScore: 88,
+    phase: 'Euphoria',
+    whatHappened: 'Bitcoin crossed $1,000 for the first time in history. Early adopters distributed significant coins into retail volume as trading volumes surged.',
+    holderAction: 'Early adopters distributed coins in huge volumes to retail newcomers.',
+    networkState: 'Active addresses surged past 200k for the first time. Mining transitioned from GPUs to early ASICs.',
+    valuationState: 'MVRV peaked at an astronomical 5.68—one of the most elevated valuation multiples recorded.',
+    metrics: {
+      mvrv: 5.68,
+      nupl: 0.82,
+      sopr: 1.25,
+      longTermHoldersPct: 58.4,
+      activeAddressesK: 240,
+      hashrateEh: 0.00001,
+      realizedPriceUsd: 202,
+      realizedCapB: 2.4
+    }
+  },
+  {
+    id: 'epoch-2015-bottom',
+    year: '2015',
+    title: '2015 Market Bottom',
+    date: 'January 2015',
+    price: 172,
+    healthScore: 32,
+    phase: 'Capitulation',
+    whatHappened: 'Following extended post-Mt. Gox consolidation and market exhaustion, price reached an 85% multi-year retracement floor.',
+    holderAction: 'Panic sellers capitulated their positions; patient accumulators soaked up floating supply.',
+    networkState: 'Speculative transaction volume quieted, while early mining industrialization began.',
+    valuationState: 'Price fell below Realized Price ($260). MVRV dropped to 0.78, establishing deep cost-basis discount.',
+    metrics: {
+      mvrv: 0.78,
+      nupl: -0.28,
+      sopr: 0.85,
+      longTermHoldersPct: 74.2,
+      activeAddressesK: 210,
+      hashrateEh: 0.0003,
+      realizedPriceUsd: 260,
+      realizedCapB: 3.5
+    }
+  },
+  {
+    id: 'epoch-2017-peak',
+    year: '2017',
+    title: '2017 Market Peak',
+    date: 'December 2017',
+    price: 19600,
+    healthScore: 86,
+    phase: 'Euphoria',
+    whatHappened: 'Mainstream awareness drove Bitcoin to nearly $20,000 alongside the launch of CME Bitcoin Futures. Exchange apps topped mobile store charts.',
+    holderAction: 'Long-term holder supply plummeted to 61.5% as seasoned holders offloaded into retail buy orders.',
+    networkState: 'Severe network congestion with mempool backlogs exceeding 200,000 unconfirmed transactions and median fees topping $30.',
+    valuationState: 'MVRV reached 4.82, with NUPL registering 0.79 in pure euphoric territory.',
+    metrics: {
+      mvrv: 4.82,
+      nupl: 0.79,
+      sopr: 1.18,
+      longTermHoldersPct: 61.5,
+      activeAddressesK: 1280,
+      hashrateEh: 14,
+      realizedPriceUsd: 4100,
+      realizedCapB: 68.5
+    }
+  },
+  {
+    id: 'epoch-2018-floor',
+    year: '2018',
+    title: '2018 Capitulation',
+    date: 'December 2018',
+    price: 3200,
+    healthScore: 28,
+    phase: 'Capitulation',
+    whatHappened: 'Extended macro contraction pushed price to $3,200. Multiple public entities and commentators questioned Bitcoin\'s long-term viability.',
+    holderAction: 'Retail capitulation reached its maximum. Long-term accumulation restarted aggressively.',
+    networkState: 'Miners shut down older hardware as difficulty dropped by over 15% in a single adjustment period.',
+    valuationState: 'MVRV fell to 0.69, marking the lowest cost-basis discount of that decade.',
+    metrics: {
+      mvrv: 0.69,
+      nupl: -0.45,
+      sopr: 0.82,
+      longTermHoldersPct: 71.0,
+      activeAddressesK: 540,
+      hashrateEh: 38,
+      realizedPriceUsd: 4650,
+      realizedCapB: 81.0
+    }
+  },
+  {
+    id: 'epoch-2020-crash',
+    year: '2020',
+    title: '2020 Liquidity Shock',
+    date: 'March 2020',
+    price: 5100,
+    healthScore: 41,
+    phase: 'Capitulation',
+    whatHappened: 'Cross-market financial liquidity liquidation occurred worldwide. Bitcoin experienced a brief rapid dislocation before a sharp V-shaped rebound.',
+    holderAction: 'Massive exchange inflows into spot venues, followed by aggressive absorption from macro buyers.',
+    networkState: 'Mempool congested briefly as liquidations cleared, followed by rapid baseline stabilization.',
+    valuationState: 'MVRV dipped to 0.85 for fewer than two weeks before rebounding above 1.0.',
+    metrics: {
+      mvrv: 0.85,
+      nupl: -0.18,
+      sopr: 0.89,
+      longTermHoldersPct: 68.4,
+      activeAddressesK: 810,
+      hashrateEh: 115,
+      realizedPriceUsd: 5520,
+      realizedCapB: 101.2
+    }
+  },
+  {
+    id: 'epoch-2021-ath',
+    year: '2021',
+    title: '2021 Market Peak',
+    date: 'November 2021',
+    price: 68700,
+    healthScore: 82,
+    phase: 'Distribution',
+    whatHappened: 'Institutional treasury allocations and the launch of the first US futures ETF pushed Bitcoin to $68,700.',
+    holderAction: 'Long-term holders took significant profits into the liquidity event, though distribution was more orderly than 2017.',
+    networkState: 'Active addresses consistently above 1 million per day. Hashrate recovered fully from the China mining ban.',
+    valuationState: 'MVRV peaked at 2.74, noticeably lower than 2017’s 4.82, reflecting a significantly more capital-heavy asset class.',
+    metrics: {
+      mvrv: 2.74,
+      nupl: 0.68,
+      sopr: 1.07,
+      longTermHoldersPct: 65.8,
+      activeAddressesK: 1150,
+      hashrateEh: 175,
+      realizedPriceUsd: 24200,
+      realizedCapB: 456.0
+    }
+  },
+  {
+    id: 'epoch-2022-ftx',
+    year: '2022',
+    title: '2022 Market Drawdown',
+    date: 'November 2022',
+    price: 15700,
+    healthScore: 31,
+    phase: 'Capitulation',
+    whatHappened: 'Successive liquidations across centralized lending entities and exchanges triggered forced selling down to $15,700.',
+    holderAction: 'Historic flight to self-custody: over 72,000 BTC were pulled off centralized exchanges in single-day spikes.',
+    networkState: 'Record exchange outflows. Hashrate held firm despite low miner margins.',
+    valuationState: 'MVRV hit 0.81. Realized Price sat at $19,800, placing the entire network at aggregate paper loss.',
+    metrics: {
+      mvrv: 0.81,
+      nupl: -0.23,
+      sopr: 0.88,
+      longTermHoldersPct: 74.8,
+      activeAddressesK: 890,
+      hashrateEh: 255,
+      realizedPriceUsd: 19800,
+      realizedCapB: 380.0
+    }
+  },
+  {
+    id: 'epoch-2024-etf',
+    year: '2024',
+    title: '2024 Spot ETF Approval and Halving',
+    date: 'March 2024',
+    price: 73700,
+    healthScore: 78,
+    phase: 'Expansion',
+    whatHappened: 'The launch of regulated spot Bitcoin ETFs drove billions of net fiat inflows, reaching new cycle highs prior to the 4th halving.',
+    holderAction: 'Long-term holders distributed moderately to meet incoming institutional demand.',
+    networkState: 'Hashrate crossed 600 EH/s for the first time in history. On-chain settlement volume expanded.',
+    valuationState: 'MVRV reached 2.78. Realized Cap stepped up past $540 Billion.',
+    metrics: {
+      mvrv: 2.78,
+      nupl: 0.64,
+      sopr: 1.11,
+      longTermHoldersPct: 67.4,
+      activeAddressesK: 1040,
+      hashrateEh: 610,
+      realizedPriceUsd: 26500,
+      realizedCapB: 540.0
+    }
+  },
+  {
+    id: 'epoch-current',
+    year: '2026',
+    title: 'Current Period',
+    date: 'September 2026',
+    price: 89400,
+    healthScore: 74,
+    phase: 'Expansion',
+    whatHappened: 'Bitcoin trades as a mature global reserve asset, backed by record mining security and deep institutional & corporate balance sheet custody.',
+    holderAction: 'Long-term holder supply stabilizes at 69.8%, indicating patient accumulation without retail panic.',
+    networkState: 'Over 712 EH/s hashrate secures the network. Active addresses sustain ~982k daily users.',
+    valuationState: 'MVRV stands at 2.14 with Realized Cap exceeding $825 Billion, signaling healthy structural growth.',
+    metrics: {
+      mvrv: 2.14,
+      nupl: 0.53,
+      sopr: 1.024,
+      longTermHoldersPct: 69.8,
+      activeAddressesK: 982,
+      hashrateEh: 712,
+      realizedPriceUsd: 41780,
+      realizedCapB: 825.4
+    }
+  }
+];

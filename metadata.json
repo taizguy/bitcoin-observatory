@@ -1,0 +1,6 @@
+{
+  "name": "Bitcoin Observatory",
+  "description": "See what Bitcoin is doing beneath the price. An interactive on-chain data observatory transforming complex Bitcoin data into visual intuition, cycle frameworks, and progressive technical depth.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
