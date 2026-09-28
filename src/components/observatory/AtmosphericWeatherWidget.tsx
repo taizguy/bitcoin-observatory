@@ -15,125 +15,111 @@ export const AtmosphericWeatherWidget: React.FC<AtmosphericWeatherWidgetProps> =
   lthSupplyValue = 69.8,
   hashrateValue = 712,
 }) => {
-  const conditionName = weather.condition || weather.name || 'Warm Sunlit Stratosphere';
+  const conditionName = weather.condition || weather.name || 'Clear Expansion Stratosphere';
   const temperatureScore = weather.temperatureScore || 68;
 
-  // Environmental state calculation
   const isHealthy = conditionName.toLowerCase().includes('sun') || temperatureScore > 65;
   const isStorm = conditionName.toLowerCase().includes('storm') || conditionName.toLowerCase().includes('rain');
 
-  // Atmospheric telemetry variables
   const barometricPressure = Math.round(1013 + (lthSupplyValue - 65) * 2.8);
   const thermodynamicWind = `${hashrateValue} EH/s`;
-  const visibility = isHealthy ? 'Unrestricted (10+ miles)' : 'Moderate Haze (4 miles)';
+  const visibility = isHealthy ? 'Unrestricted (10+ mi)' : 'Moderate Haze (4 mi)';
 
   return (
-    <div className="rounded-2xl border border-white/[0.08] bg-[#03060c] p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden h-full">
-      
-      {/* Precision Reticle Corner Accents */}
-      <div className="reticle-corner-tl" />
-      <div className="reticle-corner-tr" />
-      <div className="reticle-corner-bl" />
-      <div className="reticle-corner-br" />
-
-      {/* Subtle Atmospheric Sky Glow */}
-      <div className="absolute top-0 right-0 -mr-16 -mt-16 w-60 h-60 rounded-full bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent blur-3xl pointer-events-none" />
-
+    <div className="liquid-glass-panel rounded-3xl p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden h-full">
       <div>
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-white/[0.06]">
+        <div className="flex items-center justify-between pb-4 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-cyan-400 tracking-wider uppercase">
+            <span className="text-xs font-mono text-white/70 tracking-wider uppercase">
               METEOROLOGY STATION
             </span>
-            <span className="text-slate-600">·</span>
-            <span className="text-[11px] font-mono text-slate-400">ALTITUDE 2,870M</span>
+            <span className="text-white/30">·</span>
+            <span className="text-[11px] font-mono text-white/50">ACTIVE TELEMETRY</span>
           </div>
-          <span className="text-xs font-mono text-slate-400">
-            STATION ID: #OBS-01
+          <span className="text-xs font-mono text-white/60">
+            STATUS: NOMINAL
           </span>
         </div>
 
         {/* Climate Visual Presentation */}
-        <div className="mt-6 flex items-start gap-4">
-          <div className="p-3.5 rounded-xl bg-gradient-to-br from-amber-500/15 to-transparent border border-amber-500/30 text-amber-400 shrink-0 shadow-lg">
+        <div className="mt-5 flex items-start gap-4">
+          <div className="p-3 rounded-2xl bg-white/5 border border-white/15 text-white shrink-0">
             {isHealthy ? (
-              <Sun className="h-8 w-8 text-amber-400" />
+              <Sun className="h-7 w-7 text-white" />
             ) : isStorm ? (
-              <CloudRain className="h-8 w-8 text-rose-400" />
+              <CloudRain className="h-7 w-7 text-white/70" />
             ) : (
-              <Cloud className="h-8 w-8 text-cyan-400" />
+              <Cloud className="h-7 w-7 text-white/90" />
             )}
           </div>
 
           <div>
             <div className="flex items-baseline gap-2">
-              <h3 className="font-celestial text-2xl font-bold text-white tracking-wide">
+              <h3 className="font-serif-instrument text-2xl font-bold text-white tracking-tight">
                 {conditionName}
               </h3>
-              <span className="text-xs font-mono text-amber-400 font-bold">
-                {temperatureScore}°F
+              <span className="text-xs font-mono text-white font-bold">
+                {temperatureScore}°
               </span>
             </div>
-            <p className="mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
+            <p className="mt-1 text-xs text-white/70 leading-relaxed font-sans">
               {weather.description}
             </p>
           </div>
         </div>
 
         {/* Environmental Telemetry Matrix */}
-        <div className="mt-8 grid grid-cols-2 gap-3">
-          
-          <div className="p-3.5 rounded-xl border border-white/[0.05] bg-white/[0.02]">
-            <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-400 uppercase">
-              <Gauge className="h-3.5 w-3.5 text-amber-400" />
+        <div className="mt-6 grid grid-cols-2 gap-2.5">
+          <div className="p-3 rounded-2xl border border-white/10 bg-white/[0.03]">
+            <div className="flex items-center gap-1.5 text-[10px] font-mono text-white/60 uppercase">
+              <Gauge className="h-3.5 w-3.5 text-white" />
               <span>BAROMETER</span>
             </div>
             <div className="font-mono text-sm font-bold text-white mt-1">
               {barometricPressure} hPa
             </div>
-            <div className="text-[10px] text-emerald-400 font-mono mt-0.5">High Accumulation</div>
+            <div className="text-[10px] text-white/50 font-mono mt-0.5">High Accumulation</div>
           </div>
 
-          <div className="p-3.5 rounded-xl border border-white/[0.05] bg-white/[0.02]">
-            <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-400 uppercase">
-              <Wind className="h-3.5 w-3.5 text-cyan-400" />
-              <span>SOLAR WIND</span>
+          <div className="p-3 rounded-2xl border border-white/10 bg-white/[0.03]">
+            <div className="flex items-center gap-1.5 text-[10px] font-mono text-white/60 uppercase">
+              <Wind className="h-3.5 w-3.5 text-white" />
+              <span>COMPUTING FLUX</span>
             </div>
             <div className="font-mono text-sm font-bold text-white mt-1">
               {thermodynamicWind}
             </div>
-            <div className="text-[10px] text-cyan-400 font-mono mt-0.5">Computational Defense</div>
+            <div className="text-[10px] text-white/50 font-mono mt-0.5">Hashrate Defense</div>
           </div>
 
-          <div className="p-3.5 rounded-xl border border-white/[0.05] bg-white/[0.02]">
-            <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-400 uppercase">
-              <Compass className="h-3.5 w-3.5 text-purple-400" />
+          <div className="p-3 rounded-2xl border border-white/10 bg-white/[0.03]">
+            <div className="flex items-center gap-1.5 text-[10px] font-mono text-white/60 uppercase">
+              <Compass className="h-3.5 w-3.5 text-white" />
               <span>VISIBILITY</span>
             </div>
             <div className="font-mono text-xs font-semibold text-white mt-1 truncate">
               {visibility}
             </div>
-            <div className="text-[10px] text-slate-400 font-mono mt-0.5">Low On-Chain Haze</div>
+            <div className="text-[10px] text-white/50 font-mono mt-0.5">Low On-Chain Haze</div>
           </div>
 
-          <div className="p-3.5 rounded-xl border border-white/[0.05] bg-white/[0.02]">
-            <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-400 uppercase">
-              <Radio className="h-3.5 w-3.5 text-emerald-400" />
-              <span>CONVICTION FLUX</span>
+          <div className="p-3 rounded-2xl border border-white/10 bg-white/[0.03]">
+            <div className="flex items-center gap-1.5 text-[10px] font-mono text-white/60 uppercase">
+              <Radio className="h-3.5 w-3.5 text-white" />
+              <span>CONVICTION</span>
             </div>
             <div className="font-mono text-sm font-bold text-white mt-1">
               {lthSupplyValue.toFixed(1)}% LTH
             </div>
-            <div className="text-[10px] text-emerald-400 font-mono mt-0.5">Dormant Vault Retention</div>
+            <div className="text-[10px] text-white/50 font-mono mt-0.5">Dormant Vaults</div>
           </div>
-
         </div>
       </div>
 
-      <div className="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-slate-500 flex items-center justify-between">
-        <span>Atmospheric Metaphor Framework</span>
-        <span className="text-amber-400/80">Continuous Scanning</span>
+      <div className="mt-5 pt-3 border-t border-white/10 text-[11px] font-mono text-white/50 flex items-center justify-between">
+        <span>Atmospheric Metaphor</span>
+        <span className="text-white/80">Continuous Monitoring</span>
       </div>
 
     </div>

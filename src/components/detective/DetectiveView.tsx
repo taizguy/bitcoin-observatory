@@ -1,7 +1,23 @@
 import React, { useState } from 'react';
 import { DETECTIVE_CASES } from '../../data/detective';
 import { DetectiveCase } from '../../types';
-import { Search, Trophy, Flame, Award, ArrowRight, RotateCcw, Radio, Check, X, ShieldAlert } from 'lucide-react';
+import { 
+  Search, 
+  Trophy, 
+  Flame, 
+  Award, 
+  ArrowRight, 
+  RotateCcw, 
+  Radio, 
+  Check, 
+  X, 
+  ShieldAlert, 
+  Sparkles,
+  HelpCircle,
+  Clock,
+  Layers,
+  CheckCircle2
+} from 'lucide-react';
 
 export const DetectiveView: React.FC = () => {
   const [currentCaseIndex, setCurrentCaseIndex] = useState<number>(0);
@@ -59,214 +75,265 @@ export const DetectiveView: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 space-y-10 celestial-grid-pattern min-h-screen">
+    <div className="w-full max-w-[1840px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-8 space-y-8 min-h-screen">
       
-      {/* Header & Stats Bar */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/[0.08]">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-amber-400 mb-2 tracking-widest uppercase">
-            <Search className="h-4 w-4 text-amber-500" />
-            <span>CLASSIFIED FORENSIC LAB · BLIND CASE ARCHIVE</span>
+      {/* 1. Header & Stats Bar (Expansive Desktop Header) */}
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-white/10">
+        <div className="space-y-2 max-w-4xl">
+          <div className="flex items-center gap-2 text-xs font-mono text-white/70 uppercase tracking-wider">
+            <ShieldAlert className="h-3.5 w-3.5 text-white" />
+            <span>FORENSIC INTELLIGENCE DOSSIER</span>
+            <span className="text-white/30">·</span>
+            <span className="text-white/60">BLIND ON-CHAIN CRIME SCENES</span>
+            <span className="text-white/30">·</span>
+            <span className="text-white/80">CASE {currentCaseIndex + 1} OF {DETECTIVE_CASES.length}</span>
           </div>
-          <h1 className="font-celestial text-3xl sm:text-5xl font-bold text-white tracking-wide">
-            Bitcoin Detective Mode
+
+          <h1 
+            className="font-serif-instrument text-4xl sm:text-5xl xl:text-6xl tracking-tight text-white"
+            style={{ textShadow: '0 0 72px rgba(0, 0, 0, 0.7), 0 4px 28px rgba(0, 0, 0, 0.45)' }}
+          >
+            Bitcoin Detective <em className="italic font-serif-instrument">Mode</em>
           </h1>
-          <p className="mt-2 text-sm text-slate-300 max-w-2xl leading-relaxed font-sans">
-            Examine anonymous historical on-chain forensic scenes. Deduce what cycle phase was unfolding purely from telemetry clues before the date and price are declassified.
+
+          <p 
+            className="text-sm sm:text-base text-white/70 font-sans leading-relaxed"
+            style={{ textShadow: '0 0 30px rgba(0, 0, 0, 0.5), 0 1px 10px rgba(0, 0, 0, 0.35)' }}
+          >
+            Examine anonymous historical on-chain forensic crime scenes. Deduce what macro cycle phase was actively unfolding purely from telemetry clues before the real date, price, and headlines are declassified.
           </p>
         </div>
 
-        {/* Intelligence Telemetry Scoreboard */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-[#03060c] px-4 py-2.5 text-xs font-mono">
-            <Trophy className="h-4 w-4 text-amber-400" />
+        {/* Intelligence Scoreboard */}
+        <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl liquid-glass border border-white/10 text-xs font-mono">
+            <Trophy className="h-4 w-4 text-white" />
             <div>
-              <span className="text-[10px] text-slate-400 block uppercase">Intelligence XP</span>
-              <span className="font-bold text-white text-sm">{xp} XP</span>
+              <div className="text-[10px] text-white/50 uppercase">Total XP</div>
+              <div className="font-bold text-white text-sm">{xp}</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-[#03060c] px-4 py-2.5 text-xs font-mono">
-            <Flame className="h-4 w-4 text-orange-400" />
+          <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl liquid-glass border border-white/10 text-xs font-mono">
+            <Flame className="h-4 w-4 text-white" />
             <div>
-              <span className="text-[10px] text-slate-400 block uppercase">Active Streak</span>
-              <span className="font-bold text-white text-sm">{streak}</span>
+              <div className="text-[10px] text-white/50 uppercase">Streak</div>
+              <div className="font-bold text-white text-sm">{streak} Cases</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-[#03060c] px-4 py-2.5 text-xs font-mono">
-            <Award className="h-4 w-4 text-cyan-400" />
+          <div className="flex items-center gap-3 px-4 py-2.5 rounded-2xl liquid-glass border border-white/10 text-xs font-mono">
+            <Award className="h-4 w-4 text-white" />
             <div>
-              <span className="text-[10px] text-slate-400 block uppercase">Solved</span>
-              <span className="font-bold text-white text-sm">{solvedCases.length}/{DETECTIVE_CASES.length}</span>
+              <div className="text-[10px] text-white/50 uppercase">Solved</div>
+              <div className="font-bold text-white text-sm">{solvedCases.length}/{DETECTIVE_CASES.length}</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Case Briefing Container */}
-      <div className="rounded-2xl border border-white/[0.08] bg-[#03060c] p-6 sm:p-8 space-y-8 shadow-2xl relative">
-        <div className="reticle-corner-tl" />
-        <div className="reticle-corner-tr" />
-        <div className="reticle-corner-bl" />
-        <div className="reticle-corner-br" />
+      {/* 2. DUAL-STAGE FORENSIC WORKSTATION (Left: Case Clues + Right: Deduction Console) */}
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+        
+        {/* Left: The Case Clues & Evidence (7 of 12 columns) */}
+        <div className="xl:col-span-7 space-y-6">
+          
+          {/* Mystery Prompt Card */}
+          <div className="liquid-glass-panel rounded-3xl p-6 sm:p-8 space-y-4 shadow-2xl relative overflow-hidden">
+            <div className="flex items-center justify-between text-xs font-mono pb-3 border-b border-white/10">
+              <div className="flex items-center gap-2 text-white font-bold uppercase tracking-wider">
+                <Radio className="h-3.5 w-3.5 animate-pulse text-white" />
+                <span>CASE #{currentCaseIndex + 1}: {activeCase.title.toUpperCase()}</span>
+              </div>
+              <span className="px-3 py-1 rounded-full liquid-glass text-white/80 border border-white/10 text-[11px] font-mono">
+                {activeCase.difficulty} Level · +{activeCase.xpReward} XP
+              </span>
+            </div>
 
-        {/* Case Dossier Title & Status Banner */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.06]">
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-xs px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 uppercase font-bold">
-              FILE: #{activeCase.id.toUpperCase()}
-            </span>
-            <h2 className="font-celestial text-2xl font-bold text-white tracking-wide">
-              {activeCase.title}
-            </h2>
+            <div className="space-y-2">
+              <h2 className="font-serif-instrument text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                {activeCase.title}
+              </h2>
+              <p className="text-sm sm:text-base text-white/80 font-sans leading-relaxed">
+                "{activeCase.mysteryPrompt}"
+              </p>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3 font-mono text-xs">
-            <span className="text-slate-400">CLASSIFICATION:</span>
-            <span className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30 font-bold uppercase">
-              TOP SECRET // REDACTED
-            </span>
+          {/* Forensic Evidence Clues Grid */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between text-xs font-mono text-white/50 pb-1 border-b border-white/10 uppercase tracking-wider">
+              <span>Unclassified On-Chain Footprints</span>
+              <span>4 Clues Recovered</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {activeCase.clues.map((clue, idx) => (
+                <div 
+                  key={idx}
+                  className="rounded-2xl border border-white/10 liquid-glass p-5 space-y-2 hover:border-white/25 transition-all shadow-md"
+                >
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-white/60 font-semibold">{clue.label}</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/15 font-bold text-xs">
+                      {clue.dataPoint}
+                    </span>
+                  </div>
+                  <p className="text-xs text-white/75 font-sans leading-relaxed">
+                    {clue.significance}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
+
+          {/* Snippet Chart Trendline */}
+          {activeCase.chartSnippet && activeCase.chartSnippet.length > 0 && (
+            <div className="rounded-2xl border border-white/10 liquid-glass p-5 space-y-3">
+              <div className="flex items-center justify-between text-xs font-mono text-white/50">
+                <span className="uppercase tracking-wider">Temporal Metric Curve Progression</span>
+                <span>Relative Window</span>
+              </div>
+
+              <div className="grid grid-cols-5 gap-2 text-center">
+                {activeCase.chartSnippet.map((pt, i) => (
+                  <div key={i} className="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                    <div className="text-[11px] font-mono text-white/40">{pt.label}</div>
+                    <div className="text-sm font-mono font-bold text-white mt-1">{pt.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
 
-        {/* Anonymous Crime Scene Clues Matrix */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+        {/* Right: Deduction Console & Solution (5 of 12 columns) */}
+        <div className="xl:col-span-5 space-y-6">
           
-          {/* Left Column: Forensic Clues & Redacted Intel */}
-          <div className="md:col-span-7 space-y-6">
-            <div className="p-4 rounded-xl border border-white/[0.06] bg-black/40 text-xs font-mono space-y-2">
-              <div className="flex justify-between text-slate-400 pb-2 border-b border-white/[0.04]">
-                <span>INCIDENT LOCATION</span>
-                <span className="text-amber-400 font-bold">GLOBAL BITCOIN LEDGER</span>
+          <div className="rounded-3xl border border-white/15 liquid-glass-panel p-6 sm:p-8 space-y-6 shadow-2xl relative">
+            <div className="pb-3 border-b border-white/10">
+              <div className="flex items-center gap-2 text-xs font-mono text-white/60 uppercase tracking-wider mb-1">
+                <span>DEDUCTION CONSOLE</span>
               </div>
-              <div className="flex justify-between text-slate-400">
-                <span>INCIDENT DATE:</span>
-                <span className="bg-white/10 px-2 rounded text-slate-300 font-mono">
-                  {isRevealed ? activeCase.revealDate : '████-██-██ [REDACTED]'}
-                </span>
-              </div>
-              <div className="flex justify-between text-slate-400">
-                <span>SPOT PRICE AT SCENE:</span>
-                <span className="bg-white/10 px-2 rounded text-slate-300 font-mono">
-                  {isRevealed ? activeCase.revealPrice : '$██,███ [REDACTED]'}
-                </span>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-xs font-mono text-amber-400 uppercase tracking-wider mb-3">
-                Recovered Forensic Clues
+              <h3 className="font-serif-instrument text-2xl font-bold text-white tracking-tight">
+                Which Cycle Phase Was Unfolding?
               </h3>
-              <div className="space-y-2.5">
-                {activeCase.clues.map((clue, idx: number) => (
-                  <div key={idx} className="p-3.5 rounded-xl border border-white/[0.05] bg-white/[0.02] flex items-start gap-3">
-                    <span className="text-amber-400 font-mono text-xs mt-0.5">#{idx + 1}</span>
-                    <div>
-                      <div className="text-xs font-mono text-white font-bold">{clue.label}: {clue.dataPoint}</div>
-                      <p className="text-xs text-slate-300 font-sans leading-relaxed mt-0.5">{clue.significance}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
 
-            <div>
-              <h3 className="text-xs font-mono text-cyan-400 uppercase tracking-wider mb-3">
-                On-Chain Diagnostic Telemetry
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {activeCase.chartSnippet.map((m, idx: number) => (
-                  <div key={idx} className="p-3 rounded-xl border border-white/[0.05] bg-white/[0.02]">
-                    <div className="text-[10px] font-mono text-slate-400 uppercase">{m.label}</div>
-                    <div className="text-base font-mono font-bold text-white mt-0.5">{m.value}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Detective Deductive Options */}
-          <div className="md:col-span-5 space-y-6">
-            <h3 className="text-xs font-mono text-slate-400 uppercase tracking-wider pb-2 border-b border-white/[0.06]">
-              Select Your Forensic Deduction
-            </h3>
-
+            {/* Option Cards */}
             <div className="space-y-3">
-              {activeCase.options.map((opt) => {
-                const isSelected = selectedOptionId === opt.id;
-                let optionStyle = 'border-white/[0.06] bg-white/[0.02] hover:border-white/20';
+              {activeCase.options.map((option) => {
+                const isSelected = selectedOptionId === option.id;
+                const isCorrectOption = option.id === activeCase.correctOptionId;
 
-                if (isRevealed) {
-                  if (opt.id === activeCase.correctOptionId) {
-                    optionStyle = 'border-emerald-500/60 bg-emerald-950/30 text-emerald-300';
-                  } else if (isSelected) {
-                    optionStyle = 'border-rose-500/60 bg-rose-950/30 text-rose-300';
+                let borderStyle = 'border-white/10 liquid-glass hover:border-white/20';
+                if (isSelected && !isRevealed) {
+                  borderStyle = 'border-white bg-white/15 text-white';
+                } else if (isRevealed) {
+                  if (isCorrectOption) {
+                    borderStyle = 'border-white bg-white/20 text-white';
+                  } else if (isSelected && !isCorrectOption) {
+                    borderStyle = 'border-white/40 bg-white/5 text-white/70';
                   }
-                } else if (isSelected) {
-                  optionStyle = 'border-amber-400 bg-amber-500/15 text-amber-300 font-semibold shadow-lg';
                 }
 
                 return (
                   <div
-                    key={opt.id}
-                    onClick={() => handleSelectOption(opt.id)}
-                    className={`p-4 rounded-xl border transition-all cursor-pointer ${optionStyle}`}
+                    key={option.id}
+                    onClick={() => handleSelectOption(option.id)}
+                    className={`p-4 rounded-2xl border transition-all cursor-pointer relative ${borderStyle}`}
                   >
-                    <div className="flex items-center justify-between text-xs font-mono">
-                      <span className="font-bold">{opt.stage}</span>
-                      {isRevealed && opt.id === activeCase.correctOptionId && (
-                        <Check className="h-4 w-4 text-emerald-400" />
-                      )}
-                      {isRevealed && isSelected && opt.id !== activeCase.correctOptionId && (
-                        <X className="h-4 w-4 text-rose-400" />
+                    <div className="flex items-center justify-between text-xs font-mono mb-1">
+                      <div className="flex items-center gap-2.5">
+                        <div className={`h-4 w-4 rounded-full border flex items-center justify-center ${
+                          isSelected ? 'border-white bg-white text-black' : 'border-white/30'
+                        }`}>
+                          {isSelected && <Check className="h-3 w-3 stroke-[3]" />}
+                        </div>
+                        <span className="font-bold text-sm text-white tracking-wide">{option.stage}</span>
+                      </div>
+
+                      {isRevealed && isCorrectOption && (
+                        <span className="text-white font-bold text-xs flex items-center gap-1">
+                          <CheckCircle2 className="h-3.5 w-3.5" />
+                          CORRECT
+                        </span>
                       )}
                     </div>
-                    <p className="mt-1 text-xs text-slate-300 font-sans leading-relaxed">
-                      {opt.description}
+
+                    <p className="text-xs text-white/60 font-sans leading-relaxed mt-1 pl-6">
+                      {option.description}
                     </p>
                   </div>
                 );
               })}
             </div>
 
-            {/* Action Bar */}
-            <div className="pt-4 border-t border-white/[0.06]">
-              {!isRevealed ? (
-                <button
-                  onClick={handleConfirmDeduction}
-                  disabled={!selectedOptionId}
-                  className={`w-full py-3 rounded-xl font-mono text-xs font-bold transition-all ${
-                    selectedOptionId
-                      ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/20 active:scale-98'
-                      : 'bg-white/[0.05] text-slate-500 cursor-not-allowed'
-                  }`}
-                >
-                  CONFIRM FORENSIC DEDUCTION (+{activeCase.xpReward} XP)
-                </button>
-              ) : (
-                <div className="space-y-4">
-                  <div className={`p-4 rounded-xl border text-xs font-sans leading-relaxed ${
-                    isCorrect
-                      ? 'border-emerald-500/40 bg-emerald-950/30 text-emerald-200'
-                      : 'border-rose-500/40 bg-rose-950/30 text-rose-200'
-                  }`}>
-                    <div className="font-mono font-bold uppercase mb-1">
-                      {isCorrect ? '✓ DEDUCTION CONFIRMED CORRECT' : '✖ DEDUCTION INCORRECT'}
-                    </div>
-                    <p>{activeCase.explanation}</p>
+            {/* Action Trigger */}
+            {!isRevealed ? (
+              <button
+                onClick={handleConfirmDeduction}
+                disabled={!selectedOptionId}
+                className={`w-full py-3.5 rounded-full font-mono text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                  selectedOptionId
+                    ? 'bg-white text-black hover:scale-105 active:scale-95 shadow-xl'
+                    : 'bg-white/5 text-white/30 cursor-not-allowed border border-white/10'
+                }`}
+              >
+                <span>LOCK IN DEDUCTION</span>
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            ) : (
+              <div className="space-y-4 pt-2">
+                {/* Result Notification Card */}
+                <div className={`p-4 rounded-2xl border ${
+                  isCorrect
+                    ? 'border-white/30 bg-white/10 text-white'
+                    : 'border-white/20 bg-white/5 text-white/80'
+                }`}>
+                  <div className="flex items-center gap-2 font-mono font-bold text-sm">
+                    {isCorrect ? <CheckCircle2 className="h-4 w-4 text-white" /> : <X className="h-4 w-4 text-white/60" />}
+                    <span>{isCorrect ? 'Deduction Confirmed! +150 XP' : 'Deduction Inaccurate'}</span>
+                  </div>
+                </div>
+
+                {/* Declassified Incident Report */}
+                <div className="p-5 rounded-2xl border border-white/10 liquid-glass space-y-3">
+                  <div className="text-xs font-mono text-white/60 uppercase tracking-wider pb-2 border-b border-white/10 flex items-center justify-between">
+                    <span>DECLASSIFIED INCIDENT DETAILS</span>
+                    <span className="text-white font-bold">{activeCase.revealDate}</span>
                   </div>
 
-                  <button
-                    onClick={handleNextCase}
-                    className="w-full py-3 rounded-xl bg-white/[0.08] hover:bg-white/[0.15] text-white font-mono text-xs font-bold transition-colors flex items-center justify-center gap-2"
-                  >
-                    <span>NEXT INCIDENT FILE</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
+                  <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+                    <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/10">
+                      <div className="text-[10px] text-white/40">ACTUAL DATE</div>
+                      <div className="text-white font-bold mt-0.5">{activeCase.revealDate}</div>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/10">
+                      <div className="text-[10px] text-white/40">SPOT PRICE</div>
+                      <div className="text-white font-bold mt-0.5">{activeCase.revealPrice}</div>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-white/75 font-sans leading-relaxed pt-1">
+                    {activeCase.explanation}
+                  </p>
+
+                  <div className="pt-2 border-t border-white/10 text-xs font-sans text-white/70 leading-relaxed">
+                    <strong className="text-white">Rule of thumb: </strong>{activeCase.lessonTaught}
+                  </div>
                 </div>
-              )}
-            </div>
+
+                <button
+                  onClick={handleNextCase}
+                  className="w-full py-3.5 rounded-full font-mono text-sm font-semibold bg-white text-black hover:scale-105 active:scale-95 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xl"
+                >
+                  <span>PROCEED TO NEXT CASE</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            )}
 
           </div>
 

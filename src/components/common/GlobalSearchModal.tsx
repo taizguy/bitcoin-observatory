@@ -21,7 +21,13 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
       setTimeout(() => inputRef.current?.focus(), 50);
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
     } else {
       setQuery('');
     }
@@ -61,52 +67,58 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/85 backdrop-blur-md p-4 pt-16 sm:pt-24 transition-all">
-      <div className="relative w-full max-w-2xl rounded-2xl border border-white/10 bg-[#03060c] p-6 shadow-2xl space-y-5">
-        <div className="reticle-corner-tl" />
-        <div className="reticle-corner-tr" />
-        <div className="reticle-corner-bl" />
-        <div className="reticle-corner-br" />
-
+    <div 
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/85 backdrop-blur-2xl p-4 pt-16 sm:pt-24 transition-all"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div 
+        className="relative w-full max-w-2xl rounded-3xl liquid-glass-panel p-6 shadow-2xl space-y-5 border border-white/20"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Search Input Line */}
-        <div className="relative flex items-center border-b border-white/[0.08] pb-4">
-          <Search className="h-5 w-5 text-amber-400 mr-3 shrink-0" />
+        <div className="relative flex items-center border-b border-white/10 pb-4">
+          <Search className="h-5 w-5 text-white mr-3 shrink-0" />
           <input
             ref={inputRef}
             type="text"
-            placeholder="Search on-chain concepts, questions or metrics (e.g. 'Why are holders selling?')..."
+            placeholder="Search on-chain concepts, questions or metrics..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full bg-transparent text-sm sm:text-base text-white placeholder-slate-500 focus:outline-none font-mono"
+            className="w-full bg-transparent text-sm sm:text-base text-white placeholder-white/40 focus:outline-none font-sans"
           />
           {query && (
             <button
               onClick={() => setQuery('')}
-              className="text-xs text-slate-500 hover:text-white mr-2"
+              className="text-xs text-white/50 hover:text-white mr-3 px-2 py-1 rounded-full hover:bg-white/10"
             >
               Clear
             </button>
           )}
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            className="liquid-glass-circle w-9 h-9 flex items-center justify-center rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all cursor-pointer shrink-0"
+            title="Close dialog (Esc)"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
         {/* Search Results / Guidance */}
-        <div className="max-h-[62vh] overflow-y-auto space-y-5 pr-1 font-sans">
+        <div className="max-h-[60vh] overflow-y-auto space-y-5 pr-1 font-sans overscroll-contain">
           
           {/* Natural Language Synthesis Box when relevant */}
           {isHolderQuery && (
-            <div className="p-4 rounded-xl border border-emerald-500/30 bg-[#061410] space-y-2">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-300">
-                <Radio className="h-3.5 w-3.5 text-emerald-400 animate-pulse" />
+            <div className="p-5 rounded-2xl border border-white/15 liquid-glass space-y-2">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-white">
+                <Radio className="h-3.5 w-3.5 text-white animate-pulse" />
                 <span>NATURAL INQUIRY SYNTHESIS: HOLDER BEHAVIOR</span>
               </div>
-              <p className="text-xs text-slate-200 leading-relaxed">
-                Currently, 69.8% of coins remain in Long-Term Holder wallets unmoved for &gt;155 days. While minor profit-taking occurs (SOPR 1.024), aggregate smart money is not distributing heavily.
+              <p className="text-xs text-white/80 leading-relaxed font-sans">
+                Currently, 69.8% of coins remain in Long-Term Holder wallets unmoved for &gt;155 days. While minor profit-taking occurs (SOPR 1.024), aggregate conviction holders are refusing to distribute heavily.
               </p>
               <div className="pt-2 flex items-center gap-3 text-xs font-mono">
                 <button
@@ -114,102 +126,203 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     onSelectMetric('lth_supply');
                     onClose();
                   }}
-                  className="text-amber-400 hover:text-amber-300 font-semibold"
+                  className="text-white hover:underline decoration-white/40 font-semibold cursor-pointer flex items-center gap-1"
                 >
-                  View LTH Supply Chart →
-                </button>
-                <button
-                  onClick={() => {
-                    onSelectMetric('sopr');
-                    onClose();
-                  }}
-                  className="text-cyan-400 hover:text-cyan-300 font-semibold"
-                >
-                  Inspect SOPR →
+                  <span>View LTH Supply Chart</span>
+                  <ArrowRight className="h-3 w-3" />
                 </button>
               </div>
             </div>
           )}
 
           {isValuationQuery && (
-            <div className="p-4 rounded-xl border border-amber-500/30 bg-[#161005] space-y-2">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-300">
-                <Radio className="h-3.5 w-3.5 text-amber-400 animate-pulse" />
+            <div className="p-5 rounded-2xl border border-white/15 liquid-glass space-y-2">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-white">
+                <Radio className="h-3.5 w-3.5 text-white animate-pulse" />
                 <span>NATURAL INQUIRY SYNTHESIS: VALUATION</span>
               </div>
-              <p className="text-xs text-slate-200 leading-relaxed">
-                Bitcoin MVRV sits at 2.14x relative to an aggregate cost basis of $41,780. Valuation is classified in the Healthy Expansion corridor, well below historical mania thresholds (&gt;3.5).
+              <p className="text-xs text-white/80 leading-relaxed font-sans">
+                MVRV is currently 2.14x, sitting inside the historical healthy expansion corridor (1.0 to 2.4). Market price is well above realized cost basis ($41,780) without entering extreme top froth (&gt;3.5).
               </p>
-              <button
-                onClick={() => {
-                  onSelectMetric('mvrv');
-                  onClose();
-                }}
-                className="text-xs font-mono text-amber-400 hover:text-amber-300 font-semibold"
-              >
-                Inspect MVRV Multiple →
-              </button>
+              <div className="pt-2 flex items-center gap-3 text-xs font-mono">
+                <button
+                  onClick={() => {
+                    onSelectMetric('mvrv');
+                    onClose();
+                  }}
+                  className="text-white hover:underline decoration-white/40 font-semibold cursor-pointer flex items-center gap-1"
+                >
+                  <span>Inspect MVRV Multiple</span>
+                  <ArrowRight className="h-3 w-3" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {isNetworkQuery && (
+            <div className="p-5 rounded-2xl border border-white/15 liquid-glass space-y-2">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-white">
+                <Radio className="h-3.5 w-3.5 text-white animate-pulse" />
+                <span>NATURAL INQUIRY SYNTHESIS: NETWORK SECURITY</span>
+              </div>
+              <p className="text-xs text-white/80 leading-relaxed font-sans">
+                Hashrate stands at a record 712 EH/s. Mining computational efficiency has stabilized post-halving, and miner sell pressure remains within normal operational limits.
+              </p>
+              <div className="pt-2 flex items-center gap-3 text-xs font-mono">
+                <button
+                  onClick={() => {
+                    onSelectMetric('hashrate');
+                    onClose();
+                  }}
+                  className="text-white hover:underline decoration-white/40 font-semibold cursor-pointer flex items-center gap-1"
+                >
+                  <span>Inspect Hashrate Telemetry</span>
+                  <ArrowRight className="h-3 w-3" />
+                </button>
+              </div>
             </div>
           )}
 
           {/* Metric Results */}
           {metricResults.length > 0 ? (
             <div className="space-y-2">
-              <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider pb-1 border-b border-white/[0.04]">
-                Matched Telemetry Streams ({metricResults.length})
+              <div className="text-[11px] font-mono text-white/50 uppercase tracking-wider pb-1 border-b border-white/10">
+                Matching Metrics ({metricResults.length})
               </div>
-
-              {metricResults.map((m: MetricDefinition) => (
+              {metricResults.map((metric) => (
                 <div
-                  key={m.id}
+                  key={metric.id}
                   onClick={() => {
-                    onSelectMetric(m.id);
+                    onSelectMetric(metric.id);
                     onClose();
                   }}
-                  className="p-3 rounded-xl border border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.06] hover:border-amber-400/40 transition-all cursor-pointer flex items-center justify-between group"
+                  className="flex items-center justify-between p-3.5 rounded-2xl border border-white/10 liquid-glass hover:border-white/30 transition-all cursor-pointer group"
                 >
                   <div>
-                    <div className="flex items-center gap-2 text-xs font-mono">
-                      <span className="font-bold text-white group-hover:text-amber-300 transition-colors">
-                        {m.name}
+                    <div className="flex items-center gap-2">
+                      <span className="font-serif-instrument font-bold text-white text-base group-hover:underline decoration-white/40 transition-all">
+                        {metric.name}
                       </span>
-                      <span className="text-slate-500">({m.symbol})</span>
-                      <span className="text-slate-600">·</span>
-                      <span className="text-amber-400">{m.currentValue} {m.unit}</span>
+                      <span className="font-mono text-[10px] text-white/70 px-2 py-0.5 rounded-full bg-white/10 border border-white/10">
+                        {metric.symbol}
+                      </span>
                     </div>
-                    <p className="text-xs text-slate-400 mt-1 line-clamp-1">
-                      {m.simpleHeadline}
+                    <p className="text-xs text-white/70 font-sans mt-0.5 line-clamp-1">
+                      {metric.simpleHeadline}
                     </p>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-white transition-colors" />
+
+                  <div className="text-right shrink-0 ml-4 font-mono">
+                    <div className="text-sm font-bold text-white">
+                      {typeof metric.currentValue === 'number' ? metric.currentValue.toLocaleString() : metric.currentValue}
+                    </div>
+                    <div className="text-[10px] text-white/50">
+                      {metric.historicalPercentile}th percentile
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           ) : query ? (
-            <div className="text-center py-8 text-xs font-mono text-slate-400">
-              No matching signals found for "{query}". Try a concept like "holders", "mvrv", or "mining".
+            <div className="py-8 text-center text-white/50 text-xs font-mono">
+              No matching on-chain metrics found for "{query}".
             </div>
-          ) : (
-            <div className="space-y-4">
-              <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
-                Popular Inquiries
+          ) : null}
+
+          {/* Suggestions if no query */}
+          {!query && (
+            <div className="space-y-4 pt-1">
+              <div>
+                <div className="text-[11px] font-mono text-white/50 uppercase tracking-wider mb-2">
+                  Common Plain English Questions
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {popularSearches.map((term, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setQuery(term)}
+                      className="text-xs px-3 py-1 rounded-full liquid-glass border border-white/10 text-white/70 hover:text-white hover:border-white/30 transition-all cursor-pointer font-sans"
+                    >
+                      {term}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {popularSearches.map((term, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setQuery(term)}
-                    className="px-3 py-1.5 rounded-lg border border-white/[0.06] bg-white/[0.02] text-xs font-mono text-slate-300 hover:text-white hover:border-white/20 transition-colors"
-                  >
-                    {term}
-                  </button>
-                ))}
-              </div>
+
+              {/* View Shortcuts */}
+              {onNavigate && (
+                <div>
+                  <div className="text-[11px] font-mono text-white/50 uppercase tracking-wider mb-2">
+                    Quick Navigation
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => {
+                        onNavigate('cycle');
+                        onClose();
+                      }}
+                      className="p-3 rounded-2xl border border-white/10 liquid-glass hover:border-white/30 text-left flex items-center gap-2.5 cursor-pointer group"
+                    >
+                      <Compass className="h-4 w-4 text-white group-hover:scale-110 transition-transform" />
+                      <div>
+                        <div className="text-xs font-bold text-white font-serif-instrument text-base">Cycle Clock</div>
+                        <div className="text-[10px] text-white/50 font-mono">8 orbital macro phases</div>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        onNavigate('history');
+                        onClose();
+                      }}
+                      className="p-3 rounded-2xl border border-white/10 liquid-glass hover:border-white/30 text-left flex items-center gap-2.5 cursor-pointer group"
+                    >
+                      <History className="h-4 w-4 text-white group-hover:scale-110 transition-transform" />
+                      <div>
+                        <div className="text-xs font-bold text-white font-serif-instrument text-base">Historical Atlas</div>
+                        <div className="text-[10px] text-white/50 font-mono">15 years of ledger events</div>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        onNavigate('explorer');
+                        onClose();
+                      }}
+                      className="p-3 rounded-2xl border border-white/10 liquid-glass hover:border-white/30 text-left flex items-center gap-2.5 cursor-pointer group"
+                    >
+                      <Layers className="h-4 w-4 text-white group-hover:scale-110 transition-transform" />
+                      <div>
+                        <div className="text-xs font-bold text-white font-serif-instrument text-base">Metric Directory</div>
+                        <div className="text-[10px] text-white/50 font-mono">All consensus indicators</div>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        onNavigate('learn');
+                        onClose();
+                      }}
+                      className="p-3 rounded-2xl border border-white/10 liquid-glass hover:border-white/30 text-left flex items-center gap-2.5 cursor-pointer group"
+                    >
+                      <BookOpen className="h-4 w-4 text-white group-hover:scale-110 transition-transform" />
+                      <div>
+                        <div className="text-xs font-bold text-white font-serif-instrument text-base">Academy</div>
+                        <div className="text-[10px] text-white/50 font-mono">Ledger physics & simulators</div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
-
         </div>
 
+        {/* Footer info bar */}
+        <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-white/50">
+          <span>Search calibrated across all on-chain telemetry</span>
+          <span className="text-white/80">Deterministic UTXO Index</span>
+        </div>
       </div>
     </div>
   );

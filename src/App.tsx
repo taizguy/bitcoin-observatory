@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ViewMode, UserMode, MetricDefinition, GlobalDataMode } from './types';
 import { DataAdapter } from './data/adapter';
+import { BackgroundVideo } from './components/layout/BackgroundVideo';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { ObservatoryView } from './components/observatory/ObservatoryView';
@@ -80,8 +81,10 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#07090e] text-slate-100 selection:bg-amber-500/30 selection:text-amber-200">
-      
+    <div className="min-h-screen flex flex-col bg-black text-white selection:bg-white selection:text-black relative overflow-x-hidden">
+      {/* Background High-Fidelity Video (Observe System) */}
+      <BackgroundVideo />
+
       {/* Universal Top Bar */}
       <Header
         currentView={currentView}
@@ -95,7 +98,7 @@ export default function App() {
         onSetDataMode={handleSetDataMode}
       />
 
-      {/* Main Viewport Content */}
+      {/* Main Viewport Content - Expansive Desktop Support */}
       <main className="flex-1 w-full">
         {currentView === 'observatory' && (
           <ObservatoryView
